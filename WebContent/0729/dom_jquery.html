@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="../css/myStyle.css">
+<script src="../js/jquery-3.4.1.min.js"></script>
+<script>
+	$(function() {
+		$('button').on('click', function() {
+
+			jq = $('h1');
+			jq.css('color', 'blue');
+
+			dom = jq.get(2); //jq[2]
+
+			//dom객체 변수로 css jQuery함수를 호출 할 수 없다.
+			//dom.css('color', 'red'); --> 오류
+
+			dom.style.color = 'red';
+
+			//$()로 감싸주면 jquery객체변수가 되어서  css함수 호출가능
+			$(dom).css('color', 'green');
+
+			//전체 h1중에서 3번째 만 선택
+			jq3 = $('h1:eq(3)');
+
+			jq3.css('color', 'red');
+
+		})
+	})
+</script>
+</head>
+<body>
+	<div class="box">
+		<h2>dom객체와 jQuery 객체 변환</h2>
+		jquery를 dom으로 변환 : jQuery객체.get(N) / jQuery객체[N]<br> dom객체를
+		jQuery객체로 변환 : $(dom객체)<br>
+
+
+
+		<h1>무궁화 꽃이 피었습니다1</h1>
+		<h1>무궁화 꽃이 피었습니다2</h1>
+		<h1>무궁화 꽃이 피었습니다3</h1>
+		<h1>무궁화 꽃이 피었습니다4</h1>
+		<h1>무궁화 꽃이 피었습니다5</h1>
+
+		<button type="button">실행</button>
+	</div>
+
+</body>
+</html>

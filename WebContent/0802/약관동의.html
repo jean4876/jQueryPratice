@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="../js/jquery-3.4.1.min.js"></script>
+<link rel="stylesheet" href="../css/mystyle.css">
+<script type="text/javascript">
+	$(function() {
+		$('#all').click(function() {
+			//        $(".check").prop('checked', this.checked);
+			$(".check").prop('checked', $(this).prop('checked'));
+		})
+	})
+</script>
+</head>
+<body>
+	<input type="checkbox" id="all"> 전체선택
+	<br>
+	<input type="checkbox" class="check" id=a>김과장
+	<input type="checkbox" class="check" id=b>김대리
+	<input type="checkbox" class="check" id=c>김사원
+	<input type="checkbox" class="check" id=d>김인턴
+</body>
+</html>

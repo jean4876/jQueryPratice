@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="../css/myStyle.css">
+<script src="../js/jquery-3.4.1.min.js"></script>
+<script>
+	$(function() {
+		//$('span').click(function(){})
+		//$('span').on('click',function(){})
+		$('span#sp1').bind('click', function() {
+			$(this).css('background', 'red');
+
+			event.stopPropagation();
+		})
+		$('h1').bind('click', function() {
+			$(this).css('background', 'green');
+		})
+		
+		$('button').bind('click',function(){
+			//배경색을 변경
+			$(this).css('background', 'crimson');
+			
+			return false;
+		})
+		
+		$('span#sp2').bind('click',function(){
+			event.stopPropagation();
+			//배경색을 변경
+			$(this).css('background', 'green');
+		})
+		
+		$('div').bind('click',function(){
+			//배경색을 변경
+			$(this).css('background', 'blue');
+		})
+
+	})
+</script>
+<Style>
+	div{
+	background-color : pink;
+	text-align : center;
+	width : 300px;
+	height : 300px;
+	padding : 20px;
+	}
+	#sp2{
+	background-color : yellow;
+	display : inline-block;
+	width : 100px;
+	height : 100px;
+	padding : 50px;
+	}
+</Style>
+</head>
+<body>
+	<pre>
+event.stopPropagation : 이벤트의 버블링(확산 퍼짐)을 막는다.
+자식요소인 span태그에 이벤트가 발생하면 부모요소인 h1태그의 이벤트가 동시에 발생한다.
+자식요소에서 이벤트가 발생해도 부모의 이벤트가 발생되어 확산 되지 않도록 막아준다.
+</pre>
+	<h1>
+		큰 제목안에<span id = 'sp1'> 작은영역 </span> 이 있다.
+	</h1>
+	<hr>
+	<div>
+		<span id ='sp2'>
+			<button>클릭하세요</button>
+		</span>
+	</div>
+	<br>
+	<hr color="red">
+	<br>
+	<a href="http://www.daum.net">Daum사이트 가기</a>
+
+</body>
+</html>

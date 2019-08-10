@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+
+<link rel="stylesheet" href="../css/myStyle.css">
+<script src="../js/jquery-3.4.1.min.js"></script>
+
+<script>
+	$(function() {
+		
+		$('button#btn1').bind('click', function() {
+
+			$('div').show(1000); // $('div').css('dispaly', 'block');
+			$('div').animate({
+				left : '200px'
+			}, 1000).delay(1500);
+
+			$('div').queue(function() {
+				$(this).css('background', 'red');
+				$(this).dequeue();
+			})
+
+			$('div').animate({
+				left : '-=200px'
+			}, 1000).delay(500);
+
+			$('div').queue(function() {
+				$(this).css('background', 'green');
+				$(this).dequeue();
+			})
+
+		})
+
+		$('button#btn2').bind('click', function() {
+			setInterval(change,1000)
+		})
+		
+		function change(){
+			
+			$('h2').animate({
+				left : '200px',
+				'font-size' : '+=5px'
+			}, 1000);
+			
+			$('h2').queue(function() {
+				
+			color = Math.random() * 0xffffff;
+			color = parseInt(color);
+			color = color.toString(16);
+				
+				$(this).css('color', '#'+color);
+				$(this).dequeue();
+			})
+
+
+			$('h2').animate({
+				left : '-=200px',
+				'font-size' : '-=5px'
+			}, 1000);
+			
+			$('h2').queue(function() {
+				$(this).css('color', 'black');
+				$(this).dequeue();
+			})
+			
+		}
+		
+	})
+</script>
+
+<style>
+div {
+	width: 50px;
+	height: 50px;
+	background: green;
+	display: none;
+	position: relative;
+}
+
+h2 {
+	position: relative;
+	display: inline-block;
+}
+</style>
+</head>
+<body>
+	<button id="btn1" type="button">실행</button>
+	<hr>
+	<br>
+	<div></div>
+	<hr>
+	<pre>
+	color = Math.random() * 0xffffff;
+	color = parseInt(color);
+	color = color.toString(16);
+	-->랜덤 색상
+	
+	문자열을 오른쪽으로 이동하면서 글자 크기를 확대
+	왼쪽으로 이동하면서 글자크기를 축소
+	1초마다 한번씩 계속 수행
+   </pre>
+	<button id="btn2" type="button">실행</button>
+	<br>
+	<h2>무궁화 꽃이 피었습니다.</h2>
+</body>
+</html>

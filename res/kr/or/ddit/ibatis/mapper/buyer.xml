@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE sqlMap
+	PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+	
+	
+	<sqlMap namespace ="buyer">
+	
+	<select id="selectAllBuyer" resultClass="buyerVO">
+	
+		select * from buyer
+	
+	</select>
+	
+	<select id="selectBuyerInfo" resultClass="buyerVO">
+		select * from buyer where buyer_name = #buyer_name#
+	</select>
+	
+	</sqlMap>
