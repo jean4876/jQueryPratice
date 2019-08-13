@@ -7,6 +7,7 @@ import com.ibatis.sqlmap.client.SqlMapClient;
 
 import kr.or.ddit.ibatis.config.SqlMapClientFactory;
 import kr.or.ddit.member.vo.MemberVO;
+import kr.or.ddit.member.vo.ZipVO;
 
 /*
  *  Mapper에 접근하기 위해서 SqlMapClient객체가 필요 - 직접 생성하지 않고
@@ -17,11 +18,11 @@ import kr.or.ddit.member.vo.MemberVO;
 public class MemberDaoImpl implements IMemberDao {
 	private SqlMapClient client;
 	private static IMemberDao dao;
-	
+
 	private MemberDaoImpl() {
 		client = SqlMapClientFactory.getSqlMapClient();
 	}
-	
+
 	public static IMemberDao getInstance() {
 		if(dao == null) dao = new MemberDaoImpl();
 		return dao;
@@ -31,6 +32,22 @@ public class MemberDaoImpl implements IMemberDao {
 	public List<MemberVO> selectAll() throws SQLException {
 		// TODO Auto-generated method stub
 		return client.queryForList("member.selectAll");
+	}
+
+	@Override
+	public String getSelectedId(String id) throws SQLException {
+		return (String) client.queryForObject("member.getSelectedId", id);
+	}
+
+	@Override
+	public List<ZipVO> getSelectedDong(String dong) throws SQLException {
+		return client.queryForList("member.getSelectedDong",dong);
+	}
+
+	@Override
+	public String insertMember(MemberVO vo) throws SQLException {
+		return (String) client.insert("member.insertMember",vo);
+
 	}
 
 }

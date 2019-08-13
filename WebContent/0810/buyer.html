@@ -23,7 +23,7 @@
 						'click',
 						function() {
 							var name1 = $(this).text();
-							res = "<table border = '1'>";
+							res = "<table id ='Info' border = '1'>";
 							$.each(data, function(i, e) {
 								if ((data[i].name) == (name1)) {
 									res += "<tr><td>BUYER_ID</td><td>" + e.id
@@ -60,20 +60,24 @@
 	});
 </script>
 <Style>
+
 table {
 	width: 500px;
 	height: 500px;
-	
+}
+
+#buyer{
+	border : 2px solid red;
 }
 
 div {
 	width: 500px;
-	text-align: center;
 }
 
 span:hover {
 	background: green;
 }
+
 </Style>
 </head>
 
