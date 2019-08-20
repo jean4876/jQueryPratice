@@ -10,12 +10,10 @@
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <link rel="stylesheet"
 	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="../js/regcheck.js"></script>
 
@@ -117,7 +115,6 @@ label.control-l {
 			//입력한 id값을 가져온다
 			if (idtest()) {
 				//idval =    $('#id').val();
-
 				$.ajax({
 					url : '/jqpro/MemberIdCheck',
 					type : 'get',
@@ -136,40 +133,44 @@ label.control-l {
 		})
 
 		//번호검색
-		$('#searchDong').on('click', function() {
-			//입력한 동을 가져온다
-			dongvalue = $('#dong').val();
+		$('#searchDong')
+				.on('click',
+						function() {
+							//입력한 동을 가져온다
+							dongvalue = $('#dong').val();
 
-			if(dongtest()){
+							if (dongtest()) {
+								$.ajax({
+											url : '/jqpro/DongSelect',
+											type : 'post',
+											data : "dong=" + dongvalue, //{"dong" : dongvalue}
+											dataType : 'json',
+											success : function(datas) {
+												code = "<table class='table table-bordered' border='1'>";
+												code += "<tr><td>우편번호</td><td>주소</td><td>번지</td></tr>";
+												$.each(datas,function(i, v) {
+														code += "<tr class = 'ziptr'>";
+														code += "<td>"
+																+ v.zipcode
+																+ "</td>";
+														code += "<td>"
+																+ v.addr
+																+ "</td>";
+														code += "<td>"
+																+ v.bunji
+																+ "</td>";
+														code += "</tr>";
+													})
+												code += "</table>";
+												$('#result').html(code);
+											},
+											error : function(xhr) {
+												alert("상태 : " + xhr.status);
+											}
+										})
+							}
 
-
-
-
-				$.ajax({
-					url : '/jqpro/DongSelect',
-					type : 'post',
-					data : "dong=" + dongvalue, //{"dong" : dongvalue}
-					dataType : 'json',
-					success : function(datas) {
-						code = "<table class='table table-bordered' border='1'>";
-						code += "<tr><td>우편번호</td><td>주소</td><td>번지</td></tr>";
-						$.each(datas, function(i, v) {
-							code += "<tr class = 'ziptr'>";
-							code += "<td>" + v.zipcode + "</td>";
-							code += "<td>" + v.addr + "</td>";
-							code += "<td>" + v.bunji + "</td>";
-							code += "</tr>";
 						})
-						code += "</table>";
-						$('#result').html(code);
-					},
-					error : function(xhr) {
-						alert("상태 : " + xhr.status);
-					}
-				})
-			}
-
-		})
 		//동검색 결과에서 클릭했을때 - delegate방식
 		$('#result').on('click', '.ziptr', function() {
 
@@ -219,9 +220,8 @@ label.control-l {
 			 } */
 
 			//dataval = $('#ff').serialize();
-
-			 if(!regtest()) return;
-
+			if (!regtest())
+				return;
 
 			dataval = $('#ff').serializeArray();
 			console.log(dataval);
