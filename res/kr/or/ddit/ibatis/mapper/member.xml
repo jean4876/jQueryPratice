@@ -30,6 +30,22 @@
 
 </insert>
 
+<select id = "searchSido" resultClass="String">
+	select distinct sido from ziptb
+</select>
+
+<select id ="searchGugun" parameterClass="String"  resultClass="String">
+	select distinct GUGUN from ziptb where sido = #sido#
+</select>
+
+<select id ="searchDong" parameterClass="hashmap" resultClass="String">
+	select distinct dong from ziptb where gugun = #gugun# and sido = #sido#
+</select>
+
+<select id ="searchAddr" parameterClass="zipVO" resultClass="zipVO">
+	select * from ziptb where sido = #sido# and gugun = #gugun# and dong = #dong#
+</select>
+
 
 
 </sqlMap>

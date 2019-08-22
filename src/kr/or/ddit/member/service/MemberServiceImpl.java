@@ -1,6 +1,7 @@
 package kr.or.ddit.member.service;
 
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
 
 import kr.or.ddit.member.dao.IMemberDao;
@@ -80,5 +81,50 @@ public class MemberServiceImpl implements IMemberService {
 
 	      return res;
 	   }
+
+	@Override
+	public List<String> searchSido() {
+	      List<String> list = null;
+	      try {
+	         list = dao.searchSido();
+	      } catch (SQLException e) {
+	         e.printStackTrace();
+	      }
+	      return list;
+	   }
+
+	@Override
+	public List<String> searchGugun(String sido) {
+	      List<String> list = null;
+	      try {
+	         list = dao.searchGugun(sido);
+	      } catch (SQLException e) {
+	         e.printStackTrace();
+	      }
+	      return list;
+	   }
+
+	@Override
+	public List<String> searchDong(HashMap<String, String> sidoGugun) {
+	      List<String> list = null;
+	      try {
+	         list = dao.searchDong(sidoGugun);
+	      } catch (SQLException e) {
+	         e.printStackTrace();
+	      }
+	      return list;
+	   }
+
+	@Override
+	public List<ZipVO> searchAddr(ZipVO zipvo) {
+		List<ZipVO> list = null;
+		try {
+			dao.searchAddr(zipvo);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return list;
+	}
 
 }

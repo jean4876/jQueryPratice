@@ -15,13 +15,13 @@ var idtest = function(){
 
    // 길이검증
    if(idval.trim().length < 4 || idval.trim().length > 12){
-      alert("4~12 사이 입니다.");
+      alert("아이디는 4~12자리 입니다.");
       return false;
    }
 
    // 정규화검증
    // 영문 소문자로 시작하고 숫자로 조합
-   regid = /^[a-z]+[0-9]+[a-zA-Z]{2,10}$/;
+   regid = /^[a-z]+[0-9a-zA-Z]{2,10}$/;
    if(!(regid.test(idval))){
       alert("아이디 형식 오류입니다.");
       return false;
@@ -61,14 +61,14 @@ var regtest = function() {
       if(rkor.test(nameval)){
          // 길이검증 2-5
          if(nameval.trim().length < 2 || nameval.trim().length > 5){
-            alert("2~5 사이 입니다.");
+            alert("이름은 2~5자리 입니다.");
             $('#name').focus();
             return false;
          }
       } else if(reng.test(nameval)) {
          // 영문일 경우 5-10
          if(nameval.trim().length < 5 || nameval.trim().length > 10){
-            alert("5~10 사이 입니다.");
+            alert("영문이름은 5~10자리 입니다.");
             $('#name').focus();
             return false;
          }
@@ -92,7 +92,7 @@ var regtest = function() {
 
    // 길이검증 4-15
    if(pwdval.trim().length < 4 || pwdval.trim().length > 15){
-      alert("4~15 사이 입니다.");
+      alert("비밀번호는 4~15자리 입니다.");
       $('#pwd').focus();
       return false;
    }
@@ -134,13 +134,30 @@ var regtest = function() {
 
    regtel = /\d{3}-\d{4}-\d{4}/;
    if(!(regtel.test(telval))){
-	   alert("전화번호 양식에 맞춰주세용");
+	   alert("전화번호 양식을 맞춰주세요(010-0000-0000)");
 	   $('#ptel').focus();
 	   return false;
    }
 
    /////////////////////////////////////////////////////
    mailval = $('#mail').val();
+   if(mailval.trim().length ==0 ) {
+	   alert("이메일을 입력하세요");
+	   $('#mail').focus();
+	   return false;
+   }
+
+   //  \. = .
+   //  .  = 문자나 숫자
+
+   regmail = /^[a-zA-Z0-9]+@[a-zA-Z0-9]+(\.[a-zA-Z0-9]+){1,2}$/;
+   if(!(regmail.test(mailval))){
+	   alert("이메일 형식오류입니다");
+	   $('#mail').focus();
+	   return false;
+
+
+   }
 
    return true;
 }

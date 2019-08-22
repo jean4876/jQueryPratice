@@ -1,6 +1,7 @@
 package kr.or.ddit.member.dao;
 
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
 
 import com.ibatis.sqlmap.client.SqlMapClient;
@@ -49,5 +50,30 @@ public class MemberDaoImpl implements IMemberDao {
 		return (String) client.insert("member.insertMember",vo);
 
 	}
+
+	@Override
+	public List<String> searchSido() throws SQLException {
+		return client.queryForList("member.searchSido");
+	}
+
+	@Override
+	public List<String> searchGugun(String sido) throws SQLException {
+		return client.queryForList("member.searchGugun" , sido);
+	}
+
+	@Override
+	public List<String> searchDong(HashMap<String, String> sidoGugun) throws SQLException {
+		return client.queryForList("member.searchDong", sidoGugun);
+	}
+
+	@Override
+	public List<ZipVO> searchAddr(ZipVO zipvo) throws SQLException {
+		return client.queryForList("member.searchSido", zipvo);
+	}
+
+
+
+
+
 
 }

@@ -17,8 +17,6 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="../js/regcheck.js"></script>
 
-
-
 <style>
 fieldset {
 	border: 10px solid #cacace;
@@ -109,7 +107,6 @@ label.control-l {
 
 <script>
 	$(function() {
-
 		//중복검사
 		$('#btnid').on('click', function() {
 			//입력한 id값을 가져온다
@@ -131,6 +128,45 @@ label.control-l {
 				})
 			}
 		})
+		$('#searchZipBtn').on('click',function(){
+			$.ajax({
+				url : '/jqpro/searchSido',
+				type : 'get',
+				dataType : 'json',
+				success : function(datas){
+					code ="";
+					$.each(datas, function(i,v){
+						code += "<option value='"+v.sido+"'>"+v.sido+"</option>";
+					})
+					$('#sido').html(code);
+				},
+				error : function(xhr) {
+					alert("상태 :" + xhr.status);
+				}
+			})
+		})
+
+ 		$('#sido').on('change', function(){
+			sidoVal = $(this).val();
+			$.ajax({
+				url : '/jqpro/searchGugun',
+				type : 'get',
+				data : {
+					"sido" : sidoVal
+				},
+				dataType : 'json',
+				success : function(datas){
+					code ="";
+					$.each(datas, function(i,v){
+						code += "<option value='"+v.gugun+"'>"+v.gugun+"</option>";
+					})
+					$('#gugun').html(code);
+					$('#gugun').trigger('change');
+				}
+			})
+		})
+
+
 
 		//번호검색
 		$('#searchDong')
@@ -138,7 +174,6 @@ label.control-l {
 						function() {
 							//입력한 동을 가져온다
 							dongvalue = $('#dong').val();
-
 							if (dongtest()) {
 								$.ajax({
 											url : '/jqpro/DongSelect',
@@ -171,6 +206,8 @@ label.control-l {
 							}
 
 						})
+
+
 		//동검색 결과에서 클릭했을때 - delegate방식
 		$('#result').on('click', '.ziptr', function() {
 
@@ -190,6 +227,9 @@ label.control-l {
 			$('#result').empty();
 			$('#dong').val("");
 		})
+
+
+
 
 		//제출버튼 클릭 - 전송, 저장
 		$('#btnjoin').on('click', function() {
@@ -295,14 +335,14 @@ label.control-l {
 						class="form-c addr" id="zip" placeholder="" name="mem_zip">
 					<button type="button" data-toggle="modal" data-target="#myModal"
 						class="btn" id="zipBtn">번호검색</button>
+					<button type="button" data-toggle="modal" data-target="#Modal"
+						class="btn" id="searchZipBtn">시구동검색</button>
 					<br> <label class="control-l" for="add1">주소:</label> <input
 						type="text" class="form-c addr" id="add1" placeholder=""
 						name="mem_add1"><br> <label class="control-l"
 						for="add2">상세주소:</label> <input type="text" class="form-c addr"
 						id="add2" placeholder="" name="mem_add2">
 				</div>
-
-
 			</fieldset>
 			<div class="btn-wrap">
 				<input type="button" id="btnjoin" class="btn btn-primary" value="제출">
@@ -310,7 +350,6 @@ label.control-l {
 					id="joinres"></span>
 			</div>
 		</form>
-
 	</div>
 	<!-- Modal -->
 	<div class="modal fade" id="myModal" role="dialog">
@@ -327,6 +366,26 @@ label.control-l {
 					<button type="button" id="searchDong">검색</button>
 					<br>
 					<div id="result"></div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Modal -->
+	<div class="modal fade" id="Modal" role="dialog">
+		<div class="modal-dialog">
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">우편번호 찾기</h4>
+				</div>
+				<div class="modal-body">
+					<select id="sido"></select>
+					<select id="gugun"></select>
+					<select id="dong"></select>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
