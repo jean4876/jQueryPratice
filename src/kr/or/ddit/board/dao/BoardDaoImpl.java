@@ -6,6 +6,7 @@ import java.util.List;
 import com.ibatis.sqlmap.client.SqlMapClient;
 
 import kr.or.ddit.board.vo.BoardVO;
+import kr.or.ddit.board.vo.ReplyVO;
 import kr.or.ddit.ibatis.config.SqlMapClientFactory;
 import kr.or.ddit.member.dao.IMemberDao;
 import kr.or.ddit.member.dao.MemberDaoImpl;
@@ -32,6 +33,21 @@ public class BoardDaoImpl implements IBoardDao {
 	@Override
 	public int insertBoard(BoardVO vo) throws SQLException {
 		return (int) client.insert("board.insertBoard", vo);
+	}
+
+	@Override
+	public int deleteBoard(int seq) throws SQLException {
+		return client.delete("board.deleteBoard", seq);
+	}
+
+	@Override
+	public int insertReply(ReplyVO vo) throws SQLException {
+		return (int) client.insert("board.insertReply", vo);
+	}
+
+	@Override
+	public List<ReplyVO> listReply(int seq) throws SQLException {
+		return client.queryForList("board.listReply", seq);
 	}
 
 }
